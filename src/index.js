@@ -51,16 +51,16 @@ function App() {
     <div className="container">
       <Header />
       <Menu />
-      <Footer/>
+      <Footer />
     </div>
   );
 }
 
 function Header() {
-  return( 
+  return (
     <header className="header">
-  <h1>Best Pizza co.</h1>;
-  </header>
+      <h1>Best Pizza co.</h1>;
+    </header>
   );
 }
 
@@ -70,17 +70,16 @@ function Menu() {
   return (
     <main className="menu">
       <h2>Our Menu</h2>
-      {numPizzas > 0 && (
+      {numPizzas > 0 ? (
         <ul className="pizzas">
-        {pizzaData.map((pizza)=> (
-          <Pizza {...pizza} key={pizza.name}/>
-        ))}
+          {pizzaData.map((pizza) => (
+            <Pizza {...pizza} key={pizza.name} />
+          ))}
         </ul>
-
+      ) : (
+        <p> we're working on menu ! please ome back later </p>
       )}
-      
-      
-     
+
       {/*<Pizza 
       name = "pizza spinachi"
       Ingredients = "Tomato, mozarella, spinach, and ricotta cheese"
@@ -89,50 +88,46 @@ function Menu() {
       />
       {/* </div>
       <div className="pizza"> */}
-    {/*} <Pizza 
+      {/*} <Pizza 
       name = "Pizza Funghi"
       ingredients = "Tomato, mozarella, mushrooms, and onion"
       price = {320}
       photoName = "pizzas/funghi.jpg"
       soldOut = "false"
       />*/}
-    
-      
     </main>
   );
 }
 
-function Pizza({photoName,name,ingredients,price}) {
+function Pizza({ photoName, name, ingredients, price }) {
   return (
     <li className="pizza">
-       <img src = {photoName}alt={name}/>
-       <div>
-         <h2>{name}</h2>
-         <p>{ingredients}</p>
-         <span>{price + 3}</span>
-       </div>
+      <img src={photoName} alt={name} />
+      <div>
+        <h2>{name}</h2>
+        <p>{ingredients}</p>
+        <span>{price + 3}</span>
+      </div>
     </li>
   );
 }
 
 function Footer() {
   const hours = new Date().getHours();
-  console.log({hours})
+  console.log({ hours });
   const openhours = 12;
   const closedhours = 22;
   const isOpen = hours >= openhours && hours <= closedhours;
-  
+
   //else alert("Sorry! We`re closed");
   return (
     <footer className="footer">
       {isOpen && (
         <div className="order">
-        <p>Welcome ! we're open untill {closedhours} you can visit us now.</p>
-        <button className="btn">Order</button>
+          <p>Welcome ! we're open untill {closedhours} you can visit us now.</p>
+          <button className="btn">Order</button>
         </div>
-      )
-}
-
+      )}
     </footer>
   );
 }
