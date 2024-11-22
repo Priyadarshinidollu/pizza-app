@@ -99,7 +99,8 @@ function Menu() {
   );
 }
 
-function Pizza({ photoName, name, ingredients, price }) {
+function Pizza({ photoName, name, ingredients, price , soldOut}) {
+  if(soldOut) return null;
   return (
     <li className="pizza">
       <img src={photoName} alt={name} />
