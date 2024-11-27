@@ -21,7 +21,7 @@ const pizzaData = [
     ingredients: "Tomato, mozarella, spinach, and ricotta cheese",
     price: 12,
     photoName: "pizzas/spinaci.jpg",
-    soldOut: false,
+    soldOut: true,
   },
   {
     name: "Pizza Funghi",
@@ -40,12 +40,34 @@ const pizzaData = [
   {
     name: "Pizza Prosciutto",
     ingredients: "Tomato, mozarella, ham, aragula, and burrata cheese",
-    price: 18,
+    price: 180,
     photoName: "pizzas/prosciutto.jpg",
     soldOut: false,
   },
-];
+  
+  {
+    name:"Samosa Aloo",
+    ingredients:"Aloo , beans ,tomato , onions",
+    price:100,
+    photoName:"pizzas/samosa-image.jpeg",
+    soldOut:false
+  },
 
+  {
+    name:"Samosa",
+    ingredients:"Aloo , beans ,tomato , onions",
+    price:100,
+    photoName:"pizzas/samosa-image.jpeg",
+    soldOut:true
+  },
+  {
+    name:"Panner Fried RIce",
+    ingredients:"Aloo , beans ,tomato , onions ,panner ,Spices",
+    price:100,
+    photoName:"pizzas/panner-fried-rice.jpg",
+    soldOut:false
+  }
+];
 function App() {
   return (
     <div className="container">
@@ -72,12 +94,23 @@ function Menu() {
       <h2>Our Menu</h2>
       {numPizzas > 0 ? (
         <>
-        <p> Indian cussain !
+        <p> 
+          Indian cussain !
           all authentic dishes with decent ambiance and
-          with all Organic products, all from our stone oven </p><ul className="pizzas">
-            {pizzaData.map((pizza) => (
+          with all Organic products, all from our stone oven 
+          </p>
+          <ul className="pizzas">
+            
+            {
+              
+            pizzaData.map(
+              (pizza) => (
               <Pizza {...pizza} key={pizza.name} />
-            ))}
+            
+            )
+            )
+          
+            }
           </ul>
           </>
       ) : (
@@ -104,14 +137,14 @@ function Menu() {
 }
 
 function Pizza({ photoName, name, ingredients, price , soldOut}) {
-  if(soldOut) return null;
+  // if(soldOut) return null;
   return (
-    <li className="pizza">
+    <li className={`pizza ${ soldOut ? "sold-out":""}`}>
       <img src={photoName} alt={name} />
       <div>
         <h2>{name}</h2>
         <p>{ingredients}</p>
-        <span>{price + 3}</span>
+        <span className="sold-out">{soldOut ? "sold-out" : price} </span>
       </div>
     </li>
   );
@@ -119,7 +152,7 @@ function Pizza({ photoName, name, ingredients, price , soldOut}) {
 
 function Footer() {
   const hours = new Date().getHours();
-  console.log({ hours });
+  console.log(hours);
   const openhours = 12;
   const closedhours = 22;
   const isOpen = hours >= openhours && hours <= closedhours;
@@ -127,22 +160,22 @@ function Footer() {
   //else alert("Sorry! We`re closed");
   return (
     <footer className="footer">
-      {isOpen && (
+      {
+      isOpen && (
         <Order closedhours= {closedhours} openhours= {openhours}/>
       )}
     </footer>
   );
 }
-function Order(openhours,closedhours){
+function Order(props){
   return(
     <div className="order">
-          <p>Welcome ! we're open untill {closedhours} you can visit us now.</p>
+          <p>Welcome ! we're open untill {props.closedhours} you can visit us now.</p>
           <button className="btn">Order</button>
         </div>
   )
 }
 
-//
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
